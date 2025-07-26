@@ -2,3 +2,5 @@ name: CowCannon
 version: '1.0.0'
 main: first.minecraft.plugin.testCowCannon.TestCowCannon
 api-version: '1.21'
+commands:
+  heal:

@@ -9,6 +9,7 @@ public final class TestCowCannon extends JavaPlugin {
         // Plugin startup logic
         getLogger().info("@ My first Minecraft plugin has been enabled!");
         getServer().getPluginManager().registerEvents(new EntityListener(), this);
+        getCommand("heal").setExecutor(new HealCommand());
     }
 
     @Override
