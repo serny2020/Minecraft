@@ -9,12 +9,19 @@ public final class TestCowCannon extends JavaPlugin {
         // Plugin startup logic
         getLogger().info("@ My first Minecraft plugin has been enabled!");
         getServer().getPluginManager().registerEvents(new EntityListener(), this);
-        getCommand("heal").setExecutor(new HealCommand());
+
+        // register command classes
+        getCommand("heal").setExecutor(new HealCommand()); // restore heal
+        getCommand("cow").setExecutor(new CowCommand()); // command with tab auto complete to spawn a cow
     }
 
     @Override
     public void onDisable() {
         // Plugin shutdown logic
         getLogger().info("@ Minecraft plugin has been disabled!");
+    }
+
+    public static TestCowCannon getInstance() {
+        return getPlugin(TestCowCannon.class);
     }
 }

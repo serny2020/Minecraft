@@ -4,3 +4,9 @@ main: first.minecraft.plugin.testCowCannon.TestCowCannon
 api-version: '1.21'
 commands:
   heal:
+  cow:
+    description: "Spawn an exploding cow"
+    usage: "/cow [baby]"
+    aliases: [ cowcannon ]
+    permission: cowcannon.command.cow
+    permission-message: "You do not have permission to spawn an exploding cow"
