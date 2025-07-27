@@ -13,6 +13,12 @@ public final class TestCowCannon extends JavaPlugin {
         // register command classes
         getCommand("heal").setExecutor(new HealCommand()); // restore heal
         getCommand("cow").setExecutor(new CowCommand()); // command with tab auto complete to spawn a cow
+
+        // accessing config
+        getConfig().options().copyDefaults();
+        saveDefaultConfig();
+        getCommand("config").setExecutor(new ConfigCommand(this));
+
     }
 
     @Override
