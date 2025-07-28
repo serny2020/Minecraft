@@ -8,6 +8,13 @@ commands:
     description: "Spawn an exploding cow"
     usage: "/cow [baby]"
     aliases: [ cowcannon ]
-    permission: cowcannon.command.cow
+    permission: cowcannon.command.cow # permission tag
     permission-message: "You do not have permission to spawn an exploding cow"
   config:
+
+# permissions configuration
+permissions:
+  cowcannon.command.cow:
+    default: false
+  cowcannon.cow.use:
+    default: false
