@@ -37,6 +37,24 @@ public class EntityListener implements Listener {
 
         // Get the entity that was right-clicked
         Entity entity = e.getRightClicked();
+        // Check if the entity is a cow (spawned using /cow),
+        // and the player is holding a bucket in their hand
+        if (entity instanceof Cow
+                && entity.hasMetadata("cow")
+                && player.getItemInHand().getType() == Material.BUCKET) {
+
+            // check for permissions
+            if (!player.hasPermission("cowcannon.cow.use")) {
+                player.sendMessage(ChatColor.RED + "You don't have permission! " +
+                        "Right-click anything other than a cow or use no bucket to regain it.");
+                return;
+            }
+            // Cast the entity to a Cow
+            Cow cow = (Cow) entity;
+
+            // Create an explosion at the cow's location with power 2.5 (TNT is 4.0)
+            cow.getWorld().createExplosion(cow.getLocation(), 2.5f);
+        }
 
         // manage permission block
         // iterate through player.getEffectivePermissions() as foreach
@@ -53,27 +71,11 @@ public class EntityListener implements Listener {
             player.sendMessage("You no longer have the permissions!");
         } else {
             // reassign the permission (command to spawn cow bomb)
-            permissions.put(player.getUniqueId(), player.addAttachment(TestCowCannon.getInstance(), "cowcannon.command.cow", true));
+            permissions.put(player.getUniqueId(), player.addAttachment(TestCowCannon.getInstance(), "cowcannon.cow.use", true));
 
-            player.sendMessage(ChatColor.GREEN + "You now have the permission to spawn cow!");
+            player.sendMessage(ChatColor.GREEN + "You now have the permission to trigger cow bomb");
         }
 
-        // Check if the entity is a cow (spawned using /cow),
-        // and the player is holding a bucket in their hand
-        if (entity instanceof Cow
-                && entity.hasMetadata("cow")
-                && player.getItemInHand().getType() == Material.BUCKET) {
 
-            // check for permissions
-            if (!player.hasPermission("cowcannon.cow.use")) {
-                player.sendMessage(ChatColor.RED + "You don't have permission!");
-                return;
-            }
-            // Cast the entity to a Cow
-            Cow cow = (Cow) entity;
-
-            // Create an explosion at the cow's location with power 2.5 (TNT is 4.0)
-            cow.getWorld().createExplosion(cow.getLocation(), 2.5f);
-        }
     }
 }

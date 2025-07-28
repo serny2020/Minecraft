@@ -26,8 +26,11 @@ public class CowCommand implements CommandExecutor, TabCompleter {
 
         if (args.length > 1)
             return false;
-
         Player player = (Player) sender;
+//        if (!player.hasPermission("cowcannon.command.cow")) {
+//            sender.sendMessage(ChatColor.RED + "You don't have permission!");
+//            return false;
+//        }
         Cow cow = player.getWorld().spawn(player.getLocation(), Cow.class);
 
         if (args.length == 1 && args[0].equalsIgnoreCase("baby"))
