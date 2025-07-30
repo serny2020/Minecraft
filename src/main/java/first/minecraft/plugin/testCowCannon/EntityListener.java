@@ -2,7 +2,6 @@ package first.minecraft.plugin.testCowCannon;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.entity.Cow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -39,8 +38,8 @@ public class EntityListener implements Listener {
         Entity entity = e.getRightClicked();
         // Check if the entity is a cow (spawned using /cow),
         // and the player is holding a bucket in their hand
-        if (entity instanceof Cow
-                && entity.hasMetadata("cow")
+        if (entity.getType() == CowSettings.getInstance().getExplodingType()
+                && entity.hasMetadata("CowCannon")
                 && player.getItemInHand().getType() == Material.BUCKET) {
 
             // check for permissions
@@ -50,10 +49,10 @@ public class EntityListener implements Listener {
                 return;
             }
             // Cast the entity to a Cow
-            Cow cow = (Cow) entity;
+//            Cow cow = (Cow) entity;
 
             // Create an explosion at the cow's location with power 2.5 (TNT is 4.0)
-            cow.getWorld().createExplosion(cow.getLocation(), 2.5f);
+            entity.getWorld().createExplosion(entity.getLocation(), 2.5f);
         }
 
         // manage permission block

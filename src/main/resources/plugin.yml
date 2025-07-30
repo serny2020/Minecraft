@@ -6,7 +6,7 @@ commands:
   heal:
   cow:
     description: "Spawn an exploding cow"
-    usage: "/cow [baby]"
+    usage: "/cow [baby/set] [EntityType]"
     aliases: [ cowcannon ]
     permission: cowcannon.command.cow # permission tag
     permission-message: "You do not have permission to spawn an exploding cow"

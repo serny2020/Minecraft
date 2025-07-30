@@ -35,6 +35,9 @@ public final class TestCowCannon extends JavaPlugin implements Listener {
         saveDefaultConfig();
         getCommand("config").setExecutor(new ConfigCommand(this));
 
+        // load the settings when plug in is enabled
+        CowSettings.getInstance().load();
+
     }
 
     @Override
@@ -171,6 +174,20 @@ public final class TestCowCannon extends JavaPlugin implements Listener {
         event.getPlayer().getInventory().setBoots(boots);
         // Apply Speed Effect (Speed II for 1,000,000 ticks = ~13 hours)
         event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 1000000, 1, false, false));
+
+        // Add Elytra
+        ItemStack elytra = new ItemStack(Material.ELYTRA);
+        ItemMeta elytraMeta = elytra.getItemMeta();
+        // Custom name
+        elytraMeta.setDisplayName(ChatColor.AQUA + "Wings of the Sky");
+        // Add powerful enchantments
+        elytraMeta.addEnchant(Enchantment.getByName("DURABILITY"), 3, true);   // Unbreaking III
+        elytraMeta.addEnchant(Enchantment.MENDING, 1, true);                   // Mending
+        elytraMeta.addEnchant(Enchantment.getByName("BINDING_CURSE"), 1, true); // Optional: Curse of Binding
+        elytra.setItemMeta(elytraMeta);
+        // Equip the player with the Elytra
+        event.getPlayer().getInventory().setChestplate(elytra);
+
 
         // add game title
         event.getPlayer().sendTitle(
