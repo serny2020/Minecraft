@@ -11,6 +11,10 @@ commands:
     permission: cowcannon.command.cow # permission tag
     permission-message: "You do not have permission to spawn an exploding cow"
   config:
+  butterfly:
+    description: "Toggle particle effect"
+    usage: "/butterfly"
+    permission: cowcannon.command.butterfly
 
 # permissions configuration
 permissions:

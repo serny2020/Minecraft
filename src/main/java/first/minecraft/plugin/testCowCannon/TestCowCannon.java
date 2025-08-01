@@ -13,11 +13,14 @@ import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public final class TestCowCannon extends JavaPlugin implements Listener {
+
+    private BukkitTask task;
 
     @Override
     public void onEnable() {
@@ -29,7 +32,7 @@ public final class TestCowCannon extends JavaPlugin implements Listener {
         // register command classes
         getCommand("heal").setExecutor(new HealCommand()); // restore heal
         getCommand("cow").setExecutor(new CowCommand()); // command with tab auto complete to spawn a cow
-
+        getCommand("butterfly").setExecutor(new ButterflyCommand()); // butterfly effect command
         // accessing config
         getConfig().options().copyDefaults();
         saveDefaultConfig();
@@ -38,12 +41,20 @@ public final class TestCowCannon extends JavaPlugin implements Listener {
         // load the settings when plug in is enabled
         CowSettings.getInstance().load();
 
+        // butterfly effect
+        getCommand("butterfly").setExecutor(new ButterflyCommand());
+        task = getServer().getScheduler().runTaskTimer(this, ButterflyTask.getInstance(), 0, 1);
     }
 
     @Override
     public void onDisable() {
         // Plugin shutdown logic
         getLogger().info("@ Minecraft plugin has been disabled!");
+
+        // disable butterfly effect
+        if (task != null && !task.isCancelled()) {
+            task.cancel();
+        }
     }
 
     public static TestCowCannon getInstance() {
