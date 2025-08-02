@@ -1,8 +1,10 @@
-first/minecraft/plugin/testCowCannon/CowCommand.class
-first/minecraft/plugin/testCowCannon/TestCowCannon.class
-first/minecraft/plugin/testCowCannon/HealCommand.class
-first/minecraft/plugin/testCowCannon/ButterflyTask.class
+first/minecraft/plugin/testCowCannon/LaserPointerListener.class
 first/minecraft/plugin/testCowCannon/ButterflyCommand.class
 first/minecraft/plugin/testCowCannon/ConfigCommand.class
 first/minecraft/plugin/testCowCannon/CowSettings.class
+first/minecraft/plugin/testCowCannon/CowCommand.class
+first/minecraft/plugin/testCowCannon/LaserPointerTask.class
+first/minecraft/plugin/testCowCannon/TestCowCannon.class
+first/minecraft/plugin/testCowCannon/HealCommand.class
+first/minecraft/plugin/testCowCannon/ButterflyTask.class
 first/minecraft/plugin/testCowCannon/EntityListener.class

@@ -21,6 +21,8 @@ import java.util.List;
 public final class TestCowCannon extends JavaPlugin implements Listener {
 
     private BukkitTask task;
+    private BukkitTask task2;
+    private BukkitTask task3;
 
     @Override
     public void onEnable() {
@@ -28,6 +30,8 @@ public final class TestCowCannon extends JavaPlugin implements Listener {
         getLogger().info("@ My first Minecraft plugin has been enabled!");
         getServer().getPluginManager().registerEvents(new EntityListener(), this);
         getServer().getPluginManager().registerEvents(this, this); // register the current class
+        getServer().getPluginManager().registerEvents(new LaserPointerListener(), this); // register the Laser Pointer Listener
+
 
         // register command classes
         getCommand("heal").setExecutor(new HealCommand()); // restore heal
@@ -44,6 +48,8 @@ public final class TestCowCannon extends JavaPlugin implements Listener {
         // butterfly effect
         getCommand("butterfly").setExecutor(new ButterflyCommand());
         task = getServer().getScheduler().runTaskTimer(this, ButterflyTask.getInstance(), 0, 1);
+//        task2 = getServer().getScheduler().runTaskTimer(this, Board.getIntance(), 0, 20);
+        task3 = getServer().getScheduler().runTaskTimer(this, LaserPointerTask.getInstance(), 0, 1);
     }
 
     @Override
@@ -53,6 +59,14 @@ public final class TestCowCannon extends JavaPlugin implements Listener {
 
         // disable butterfly effect
         if (task != null && !task.isCancelled()) {
+            task.cancel();
+        }
+
+        // disable laser pointer
+        if (task2 != null && !task2.isCancelled()) {
+            task.cancel();
+        }
+        if (task3 != null && !task3.isCancelled()) {
             task.cancel();
         }
     }
@@ -115,7 +129,7 @@ public final class TestCowCannon extends JavaPlugin implements Listener {
         meta.addEnchant(Enchantment.getByName("PROTECTION_ENVIRONMENTAL"), 4, true); // Protection IV
 
         nchestplate.setItemMeta(nchestplatemeta);
-        event.getPlayer().getInventory().setChestplate(nchestplate);
+        event.getPlayer().getInventory().addItem(nchestplate);
 
 
         // add bow
@@ -199,6 +213,15 @@ public final class TestCowCannon extends JavaPlugin implements Listener {
         // Equip the player with the Elytra
         event.getPlayer().getInventory().setChestplate(elytra);
 
+
+
+        // add Laser Pointer
+        ItemStack laserPointer = new ItemStack(Material.NETHER_STAR);
+        ItemMeta laserPointerMeta = laserPointer.getItemMeta();
+        laserPointerMeta.setDisplayName(ChatColor.WHITE + "Laser Pointer");
+        laserPointer.setItemMeta(laserPointerMeta);
+        event.getPlayer().getInventory().addItem(laserPointer);
+        event.getPlayer().getInventory().addItem(new ItemStack(Material.BUCKET));
 
         // add game title
         event.getPlayer().sendTitle(
